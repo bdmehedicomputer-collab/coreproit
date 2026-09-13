@@ -316,7 +316,7 @@ export default function Home() {
               >
                 WEBSITE, APP
                 <br />
-                <span className="text-shimmer">WA - TG Bot</span>
+                <span className="text-shimmer">BOT AUTOMATION</span>
               </motion.h1>
 
               <motion.p
