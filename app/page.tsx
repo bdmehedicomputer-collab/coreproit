@@ -1,14 +1,45 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
 import {
-  ArrowDownRight, ArrowRight, ArrowUpRight, Bot, Check, ChevronDown,
-  Code2, ExternalLink, Github, Globe2, Layers3, Linkedin, Mail, Menu,
-  MessageCircle, Rocket, Server, Smartphone, Sparkles, Terminal, Workflow,
-  X, Zap,
+  AnimatePresence,
+  motion,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  type Variants,
+} from "framer-motion";
+import {
+  ArrowDownRight,
+  ArrowRight,
+  ArrowUpRight,
+  Bot,
+  Check,
+  ChevronDown,
+  Code2,
+  ExternalLink,
+  Github,
+  Globe2,
+  Layers3,
+  Linkedin,
+  Mail,
+  Menu,
+  MessageCircle,
+  Rocket,
+  Server,
+  Smartphone,
+  Sparkles,
+  Terminal,
+  Workflow,
+  X,
+  Zap,
 } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+
+/* ------------------------------------------------------------------ */
+/* Typed easing tuple — required by Framer Motion v11+                */
+/* ------------------------------------------------------------------ */
+const EASE: [number, number, number, number] = [0.2, 0.7, 0.2, 1];
 
 /* ------------------------------------------------------------------ */
 /* Data                                                                */
@@ -103,7 +134,11 @@ export default function Home() {
   const reduce = useReducedMotion();
 
   const { scrollYProgress } = useScroll();
-  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 20, mass: 0.4 });
+  const progress = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 20,
+    mass: 0.4,
+  });
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -114,14 +149,17 @@ export default function Home() {
 
   useEffect(() => {
     document.body.style.overflow = menu ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [menu]);
 
-  const fadeUp = {
+  const fadeUp: Variants = {
     hidden: { opacity: 0, y: reduce ? 0 : 22 },
-    show: (i = 0) => ({
-      opacity: 1, y: 0,
-      transition: { duration: .65, ease: [.2, .7, .2, 1], delay: i * .07 },
+    show: (i: number = 0) => ({
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.65, ease: EASE, delay: i * 0.07 },
     }),
   };
 
@@ -151,8 +189,15 @@ export default function Home() {
           <a href="#home" className="group flex items-center gap-3" aria-label="CoreProIT home">
             <span className="relative grid h-10 w-10 place-items-center overflow-hidden rounded-xl border border-cyanx/30 bg-ink-700">
               <span className="absolute inset-0 bg-gradient-to-br from-cyanx/25 via-transparent to-purplex/25" />
-              <span className="absolute inset-0 opacity-0 transition group-hover:opacity-100 bg-gradient-to-br from-cyanx/40 to-purplex/40" />
-              <Image src="/logo.svg" alt="" width={26} height={26} priority className="relative z-10" />
+              <span className="absolute inset-0 bg-gradient-to-br from-cyanx/40 to-purplex/40 opacity-0 transition group-hover:opacity-100" />
+              <Image
+                src="/logo.svg"
+                alt=""
+                width={26}
+                height={26}
+                priority
+                className="relative z-10"
+              />
             </span>
             <span className="text-lg font-black tracking-tight">
               Core<span className="text-cyanx">Pro</span>IT
@@ -167,7 +212,6 @@ export default function Home() {
                 className="relative text-sm text-slate-400 transition hover:text-white"
               >
                 {n.label}
-                <span className="absolute -bottom-1.5 left-0 h-px w-0 bg-cyanx transition-all duration-300 group-hover:w-full" />
               </a>
             ))}
             <a href="#contact" className="btn-primary !px-5 !py-2.5 !text-[13px]">
@@ -183,11 +227,21 @@ export default function Home() {
           >
             <AnimatePresence mode="wait" initial={false}>
               {menu ? (
-                <motion.span key="x" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }}>
+                <motion.span
+                  key="x"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                >
                   <X size={18} />
                 </motion.span>
               ) : (
-                <motion.span key="m" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }}>
+                <motion.span
+                  key="m"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                >
                   <Menu size={18} />
                 </motion.span>
               )}
@@ -201,7 +255,7 @@ export default function Home() {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: .3, ease: [.2, .7, .2, 1] }}
+              transition={{ duration: 0.3, ease: EASE }}
               className="overflow-hidden border-t border-white/[.06] bg-ink/95 backdrop-blur-xl md:hidden"
             >
               <div className="space-y-1 px-5 py-5">
@@ -212,14 +266,18 @@ export default function Home() {
                     onClick={() => setMenu(false)}
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * .05 }}
+                    transition={{ delay: i * 0.05 }}
                     className="flex items-center justify-between rounded-xl px-4 py-3 text-slate-300 transition hover:bg-white/[.04] hover:text-white"
                   >
                     {n.label}
                     <ArrowUpRight size={16} className="text-slate-600" />
                   </motion.a>
                 ))}
-                <a href="#contact" onClick={() => setMenu(false)} className="btn-primary mt-3 w-full justify-center">
+                <a
+                  href="#contact"
+                  onClick={() => setMenu(false)}
+                  className="btn-primary mt-3 w-full justify-center"
+                >
                   Start a project <ArrowUpRight size={15} />
                 </a>
               </div>
@@ -229,12 +287,17 @@ export default function Home() {
       </header>
 
       {/* ---------------- HERO ---------------- */}
-      <section id="home" className="relative mx-auto flex min-h-[100svh] max-w-7xl items-center px-5 pb-24 pt-32 lg:px-8">
+      <section
+        id="home"
+        className="relative mx-auto flex min-h-[100svh] max-w-7xl items-center px-5 pb-24 pt-32 lg:px-8"
+      >
         <div className="w-full">
           <div className="grid items-center gap-14 lg:grid-cols-[1.15fr_.85fr]">
             <div>
               <motion.div
-                variants={fadeUp} initial="hidden" animate="show"
+                variants={fadeUp}
+                initial="hidden"
+                animate="show"
                 className="mb-7 inline-flex items-center gap-2 rounded-full border border-cyanx/20 bg-cyanx/[.06] px-4 py-2 text-[11px] font-bold uppercase tracking-[.24em] text-cyanx"
               >
                 <span className="relative flex h-1.5 w-1.5">
@@ -245,24 +308,35 @@ export default function Home() {
               </motion.div>
 
               <motion.h1
-                variants={fadeUp} initial="hidden" animate="show" custom={1}
+                variants={fadeUp}
+                initial="hidden"
+                animate="show"
+                custom={1}
                 className="max-w-5xl text-[clamp(2.75rem,8vw,7rem)] font-black leading-[.95] tracking-[-.04em]"
               >
-                Digital products.<br />
+                Digital products.
+                <br />
                 <span className="text-shimmer">Engineered.</span>
               </motion.h1>
 
               <motion.p
-                variants={fadeUp} initial="hidden" animate="show" custom={2}
+                variants={fadeUp}
+                initial="hidden"
+                animate="show"
+                custom={2}
                 className="mt-8 max-w-2xl text-base leading-8 text-slate-400 sm:text-lg"
               >
-                <span className="font-semibold text-white">MD MEHEDI HASAN</span> — Full Stack Developer behind{" "}
-                <span className="font-semibold text-cyanx">CoreProIT</span>. I build websites, apps, automation
-                systems and intelligent bots that turn ideas into useful products.
+                <span className="font-semibold text-white">MD MEHEDI HASAN</span> — Full Stack
+                Developer behind <span className="font-semibold text-cyanx">CoreProIT</span>. I
+                build websites, apps, automation systems and intelligent bots that turn ideas into
+                useful products.
               </motion.p>
 
               <motion.div
-                variants={fadeUp} initial="hidden" animate="show" custom={3}
+                variants={fadeUp}
+                initial="hidden"
+                animate="show"
+                custom={3}
                 className="mt-9 flex flex-wrap gap-3"
               >
                 <a href="#work" className="btn-primary group">
@@ -275,7 +349,10 @@ export default function Home() {
               </motion.div>
 
               <motion.div
-                variants={fadeUp} initial="hidden" animate="show" custom={4}
+                variants={fadeUp}
+                initial="hidden"
+                animate="show"
+                custom={4}
                 className="mt-10 flex items-center gap-6 text-xs text-slate-500"
               >
                 <div className="flex -space-x-2">
@@ -294,43 +371,50 @@ export default function Home() {
 
             {/* Hero visual — system status panel */}
             <motion.div
-              initial={{ opacity: 0, scale: .96 }}
+              initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: .8, ease: [.2, .7, .2, 1], delay: .25 }}
+              transition={{ duration: 0.8, ease: EASE, delay: 0.25 }}
               className="relative mx-auto w-full max-w-[440px]"
             >
-              <div aria-hidden className="absolute -inset-10 rounded-[3rem] bg-gradient-to-br from-cyanx/15 via-transparent to-purplex/15 blur-2xl" />
+              <div
+                aria-hidden
+                className="absolute -inset-10 rounded-[3rem] bg-gradient-to-br from-cyanx/15 via-transparent to-purplex/15 blur-2xl"
+              />
 
               <div className="glass relative overflow-hidden rounded-[1.75rem] shadow-glow">
-                {/* Window chrome */}
                 <div className="flex items-center justify-between border-b border-white/[.07] px-5 py-3.5">
                   <div className="flex gap-1.5">
                     <span className="h-2.5 w-2.5 rounded-full bg-red-400/70" />
                     <span className="h-2.5 w-2.5 rounded-full bg-yellow-400/70" />
                     <span className="h-2.5 w-2.5 rounded-full bg-green-400/70" />
                   </div>
-                  <span className="font-mono text-[10px] text-slate-500">coreproit.dev / status</span>
+                  <span className="font-mono text-[10px] text-slate-500">
+                    coreproit.dev / status
+                  </span>
                   <span className="h-2.5 w-2.5" />
                 </div>
 
-                {/* Status rows */}
                 <div className="space-y-2.5 p-5">
                   {[
-                    { label: "Web · Next.js", value: 96, tone: "cyan" },
-                    { label: "Backend · Node / PHP", value: 92, tone: "purple" },
-                    { label: "Automation · Python", value: 94, tone: "cyan" },
-                    { label: "Bots · Telegram / WA", value: 90, tone: "purple" },
+                    { label: "Web · Next.js", value: 96, tone: "cyan" as const },
+                    { label: "Backend · Node / PHP", value: 92, tone: "purple" as const },
+                    { label: "Automation · Python", value: 94, tone: "cyan" as const },
+                    { label: "Bots · Telegram / WA", value: 90, tone: "purple" as const },
                   ].map((row, i) => (
                     <motion.div
                       key={row.label}
                       initial={{ opacity: 0, x: -12 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: .45 + i * .09, duration: .5 }}
+                      transition={{ delay: 0.45 + i * 0.09, duration: 0.5 }}
                       className="rounded-xl border border-white/[.06] bg-white/[.02] px-3.5 py-3"
                     >
                       <div className="flex items-center justify-between text-[11px]">
                         <span className="text-slate-400">{row.label}</span>
-                        <span className={`font-mono font-bold ${row.tone === "cyan" ? "text-cyanx" : "text-purplex"}`}>
+                        <span
+                          className={`font-mono font-bold ${
+                            row.tone === "cyan" ? "text-cyanx" : "text-purplex"
+                          }`}
+                        >
                           {row.value}%
                         </span>
                       </div>
@@ -338,7 +422,11 @@ export default function Home() {
                         <motion.div
                           initial={{ width: 0 }}
                           animate={{ width: `${row.value}%` }}
-                          transition={{ delay: .55 + i * .09, duration: .9, ease: [.2, .7, .2, 1] }}
+                          transition={{
+                            delay: 0.55 + i * 0.09,
+                            duration: 0.9,
+                            ease: EASE,
+                          }}
                           className={`h-full rounded-full ${
                             row.tone === "cyan"
                               ? "bg-gradient-to-r from-cyanx/60 to-cyanx"
@@ -364,12 +452,11 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Floating badge */}
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.2 }}
-                className="glass absolute -bottom-5 -left-5 hidden items-center gap-2.5 rounded-2xl px-4 py-3 shadow-card sm:flex animate-floaty"
+                className="glass absolute -bottom-5 -left-5 hidden items-center gap-2.5 rounded-2xl px-4 py-3 shadow-card animate-floaty sm:flex"
               >
                 <span className="grid h-8 w-8 place-items-center rounded-lg bg-cyanx/15 text-cyanx">
                   <Sparkles size={15} />
@@ -394,7 +481,10 @@ export default function Home() {
             />
             <div className="marquee">
               {[...TECH, ...TECH].map((t, i) => (
-                <div key={i} className="flex items-center gap-10 px-5 text-xs font-bold tracking-[.2em] text-slate-600">
+                <div
+                  key={i}
+                  className="flex items-center gap-10 px-5 text-xs font-bold tracking-[.2em] text-slate-600"
+                >
                   <span>{t}</span>
                   <span className="text-cyanx/40">✦</span>
                 </div>
@@ -408,7 +498,9 @@ export default function Home() {
       <section id="about" className="mx-auto max-w-7xl px-5 py-28 lg:px-8">
         <div className="grid gap-14 lg:grid-cols-[.85fr_1.15fr] lg:gap-20">
           <Reveal>
-            <p className="text-[11px] font-bold uppercase tracking-[.25em] text-cyanx">/ About CoreProIT</p>
+            <p className="text-[11px] font-bold uppercase tracking-[.25em] text-cyanx">
+              / About CoreProIT
+            </p>
             <h2 className="mt-4 text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
               Code that solves <span className="text-gradient">real problems.</span>
             </h2>
@@ -430,16 +522,18 @@ export default function Home() {
             </div>
           </Reveal>
 
-          <Reveal delay={.1} className="space-y-8">
+          <Reveal delay={0.1} className="space-y-8">
             <p className="text-lg leading-8 text-slate-300">
               CoreProIT is the personal technology brand of{" "}
-              <strong className="text-white">MD MEHEDI HASAN</strong>, focused on practical full-stack
-              engineering, automation and digital product development.
+              <strong className="text-white">MD MEHEDI HASAN</strong>, focused on practical
+              full-stack engineering, automation and digital product development.
             </p>
             <p className="leading-8 text-slate-400">
-              From a polished company website to a custom Windows automation tool or a messaging bot,
-              every build is approached with the same goal:{" "}
-              <strong className="text-slate-200">clean UX, useful functionality and dependable engineering.</strong>
+              From a polished company website to a custom Windows automation tool or a messaging
+              bot, every build is approached with the same goal:{" "}
+              <strong className="text-slate-200">
+                clean UX, useful functionality and dependable engineering.
+              </strong>
             </p>
 
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -485,22 +579,24 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
           <div className="mb-14 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
             <Reveal>
-              <p className="text-[11px] font-bold uppercase tracking-[.25em] text-cyanx">/ Capabilities</p>
+              <p className="text-[11px] font-bold uppercase tracking-[.25em] text-cyanx">
+                / Capabilities
+              </p>
               <h2 className="mt-4 text-4xl font-black sm:text-5xl lg:text-6xl">
                 What I <span className="text-gradient">build.</span>
               </h2>
             </Reveal>
-            <Reveal delay={.1}>
+            <Reveal delay={0.1}>
               <p className="max-w-md text-sm leading-6 text-slate-400">
-                From concept to deployment, CoreProIT creates digital systems around the actual problem —
-                not just the technology.
+                From concept to deployment, CoreProIT creates digital systems around the actual
+                problem — not just the technology.
               </p>
             </Reveal>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {SERVICES.map((s, i) => (
-              <Reveal key={s.title} delay={i * .05}>
+              <Reveal key={s.title} delay={i * 0.05}>
                 <div
                   className="card-hover h-full rounded-3xl border border-white/[.07] bg-ink-800 p-7 shadow-card sm:p-8"
                   onMouseMove={(e) => {
@@ -538,7 +634,7 @@ export default function Home() {
 
         <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {PROCESS.map((p, i) => (
-            <Reveal key={p.n} delay={i * .08}>
+            <Reveal key={p.n} delay={i * 0.08}>
               <div className="relative h-full rounded-3xl border border-white/[.07] bg-white/[.02] p-7">
                 <div className="flex items-baseline gap-3">
                   <span className="font-mono text-3xl font-black text-cyanx/70">{p.n}</span>
@@ -562,7 +658,9 @@ export default function Home() {
       <section id="work" className="mx-auto max-w-7xl px-5 py-28 lg:px-8">
         <div className="mb-14 flex items-end justify-between">
           <Reveal>
-            <p className="text-[11px] font-bold uppercase tracking-[.25em] text-cyanx">/ Selected Work</p>
+            <p className="text-[11px] font-bold uppercase tracking-[.25em] text-cyanx">
+              / Selected Work
+            </p>
             <h2 className="mt-4 text-4xl font-black sm:text-5xl lg:text-6xl">
               Built for <span className="text-gradient">impact.</span>
             </h2>
@@ -572,7 +670,7 @@ export default function Home() {
 
         <div className="grid gap-6 lg:grid-cols-3">
           {PROJECTS.map((p, i) => (
-            <Reveal key={p.title} delay={i * .08}>
+            <Reveal key={p.title} delay={i * 0.08}>
               <article className="group h-full overflow-hidden rounded-3xl border border-white/[.07] bg-white/[.02] transition duration-500 hover:-translate-y-1.5 hover:border-cyanx/25 hover:bg-white/[.035]">
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <Image
@@ -618,7 +716,9 @@ export default function Home() {
       <section className="border-y border-white/[.05] bg-white/[.012] py-28">
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
           <Reveal>
-            <p className="text-[11px] font-bold uppercase tracking-[.25em] text-cyanx">/ Testimonials</p>
+            <p className="text-[11px] font-bold uppercase tracking-[.25em] text-cyanx">
+              / Testimonials
+            </p>
             <h2 className="mt-4 max-w-3xl text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
               What clients <span className="text-gradient">say.</span>
             </h2>
@@ -626,7 +726,7 @@ export default function Home() {
 
           <div className="mt-14 grid gap-6 lg:grid-cols-3">
             {TESTIMONIALS.map((t, i) => (
-              <Reveal key={t.name} delay={i * .08}>
+              <Reveal key={t.name} delay={i * 0.08}>
                 <figure className="flex h-full flex-col rounded-3xl border border-white/[.07] bg-ink-800 p-7 sm:p-8">
                   <div className="mb-5 flex gap-1 text-cyanx" aria-label="5 out of 5 stars">
                     {Array.from({ length: 5 }).map((_, s) => (
@@ -656,16 +756,24 @@ export default function Home() {
       <section className="mx-auto max-w-7xl px-5 py-28 lg:px-8">
         <Reveal>
           <div className="relative overflow-hidden rounded-[2rem] border border-white/[.07] bg-gradient-to-br from-cyanx/[.08] via-white/[.02] to-purplex/[.08] p-8 sm:p-14">
-            <Rocket className="absolute right-8 top-8 text-cyanx/20" size={80} strokeWidth={1} aria-hidden />
+            <Rocket
+              className="absolute right-8 top-8 text-cyanx/20"
+              size={80}
+              strokeWidth={1}
+              aria-hidden
+            />
             <div className="max-w-2xl">
-              <p className="text-[11px] font-bold uppercase tracking-[.25em] text-cyanx">/ Why CoreProIT</p>
+              <p className="text-[11px] font-bold uppercase tracking-[.25em] text-cyanx">
+                / Why CoreProIT
+              </p>
               <h2 className="mt-4 text-3xl font-black sm:text-5xl">
-                Less complexity.<br />
+                Less complexity.
+                <br />
                 <span className="text-gradient">More momentum.</span>
               </h2>
               <p className="mt-5 max-w-xl leading-7 text-slate-400">
-                A developer-led approach with direct communication, practical architecture and a focus on
-                shipping useful software.
+                A developer-led approach with direct communication, practical architecture and a
+                focus on shipping useful software.
               </p>
 
               <div className="mt-8 grid gap-4 sm:grid-cols-3">
@@ -674,7 +782,10 @@ export default function Home() {
                   { icon: Zap, k: "Fast delivery", v: "Focused sprints, visible progress" },
                   { icon: Check, k: "Reliable", v: "Tested before it ships" },
                 ].map((f) => (
-                  <div key={f.k} className="rounded-2xl border border-white/[.07] bg-ink/40 p-4 backdrop-blur">
+                  <div
+                    key={f.k}
+                    className="rounded-2xl border border-white/[.07] bg-ink/40 p-4 backdrop-blur"
+                  >
                     <f.icon size={18} className="text-cyanx" />
                     <p className="mt-3 text-sm font-bold">{f.k}</p>
                     <p className="mt-1 text-xs leading-5 text-slate-500">{f.v}</p>
@@ -699,10 +810,13 @@ export default function Home() {
             </p>
           </Reveal>
 
-          <Reveal delay={.1}>
+          <Reveal delay={0.1}>
             <div className="divide-y divide-white/[.06] rounded-3xl border border-white/[.07] bg-white/[.02]">
               {FAQ.map((item) => (
-                <details key={item.q} className="group px-6 py-5 [&_summary::-webkit-details-marker]:hidden">
+                <details
+                  key={item.q}
+                  className="group px-6 py-5 [&_summary::-webkit-details-marker]:hidden"
+                >
                   <summary className="flex cursor-pointer items-center justify-between gap-4 text-[15px] font-semibold">
                     {item.q}
                     <ChevronDown
@@ -722,17 +836,23 @@ export default function Home() {
       <section id="contact" className="mx-auto max-w-7xl px-5 pb-28 lg:px-8">
         <Reveal>
           <div className="relative overflow-hidden rounded-[2rem] border border-cyanx/15 bg-ink-800 p-8 text-center sm:p-16">
-            <div aria-hidden className="glow-cyan pointer-events-none absolute left-1/2 top-0 h-[400px] w-[400px] -translate-x-1/2" />
+            <div
+              aria-hidden
+              className="glow-cyan pointer-events-none absolute left-1/2 top-0 h-[400px] w-[400px] -translate-x-1/2"
+            />
 
             <div className="relative">
-              <p className="text-[11px] font-bold uppercase tracking-[.25em] text-cyanx">/ Start something</p>
+              <p className="text-[11px] font-bold uppercase tracking-[.25em] text-cyanx">
+                / Start something
+              </p>
               <h2 className="mx-auto mt-4 max-w-4xl text-4xl font-black tracking-tight sm:text-6xl lg:text-7xl">
-                Have an idea?<br />
+                Have an idea?
+                <br />
                 <span className="text-gradient">Let&apos;s build it.</span>
               </h2>
               <p className="mx-auto mt-5 max-w-xl text-slate-400">
-                Websites, apps, automation, APIs or bots — tell me what you want to create and I&apos;ll
-                reply within 24 hours.
+                Websites, apps, automation, APIs or bots — tell me what you want to create and
+                I&apos;ll reply within 24 hours.
               </p>
 
               <div className="mt-10 flex flex-wrap justify-center gap-3">
@@ -766,9 +886,15 @@ export default function Home() {
               </div>
 
               <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-slate-500">
-                <span className="flex items-center gap-1.5"><Check size={13} className="text-cyanx" /> Free consultation</span>
-                <span className="flex items-center gap-1.5"><Check size={13} className="text-cyanx" /> Clear fixed quote</span>
-                <span className="flex items-center gap-1.5"><Check size={13} className="text-cyanx" /> Reply within 24h</span>
+                <span className="flex items-center gap-1.5">
+                  <Check size={13} className="text-cyanx" /> Free consultation
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <Check size={13} className="text-cyanx" /> Clear fixed quote
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <Check size={13} className="text-cyanx" /> Reply within 24h
+                </span>
               </div>
             </div>
           </div>
@@ -787,7 +913,9 @@ export default function Home() {
                 <p className="text-sm font-black tracking-tight">
                   Core<span className="text-cyanx">Pro</span>IT
                 </p>
-                <p className="text-[11px] text-slate-500">MD MEHEDI HASAN · Full Stack Developer</p>
+                <p className="text-[11px] text-slate-500">
+                  MD MEHEDI HASAN · Full Stack Developer
+                </p>
               </div>
             </div>
 
@@ -821,7 +949,6 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* Back to top */}
       <BackToTop />
     </main>
   );
@@ -847,7 +974,7 @@ function Reveal({
       initial={{ opacity: 0, y: reduce ? 0 : 26 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: .7, ease: [.2, .7, .2, 1], delay }}
+      transition={{ duration: 0.7, ease: EASE, delay }}
     >
       {children}
     </motion.div>
@@ -856,7 +983,6 @@ function Reveal({
 
 function BackToTop() {
   const [show, setShow] = useState(false);
-  const ref = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onScroll = () => setShow(window.scrollY > 700);
@@ -868,10 +994,9 @@ function BackToTop() {
     <AnimatePresence>
       {show && (
         <motion.button
-          ref={ref}
-          initial={{ opacity: 0, scale: .8, y: 12 }}
+          initial={{ opacity: 0, scale: 0.8, y: 12 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: .8, y: 12 }}
+          exit={{ opacity: 0, scale: 0.8, y: 12 }}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           aria-label="Back to top"
           className="fixed bottom-6 right-6 z-40 grid h-11 w-11 place-items-center rounded-full border border-white/10 bg-ink-800/90 text-slate-300 shadow-card backdrop-blur transition hover:border-cyanx/40 hover:text-cyanx"
