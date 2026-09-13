@@ -316,7 +316,7 @@ export default function Home() {
               >
                 Website, App
                 <br />
-                <span className="text-shimmer">Bot Automation</span>
+                <span className="text-shimmer">Whatsapp/Telegram Bot</span>
               </motion.h1>
 
               <motion.p
