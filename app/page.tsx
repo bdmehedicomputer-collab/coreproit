@@ -314,9 +314,9 @@ export default function Home() {
                 custom={1}
                 className="max-w-5xl text-[clamp(2.75rem,8vw,7rem)] font-black leading-[.95] tracking-[-.04em]"
               >
-                Website, App
+                WEBSITE, APP
                 <br />
-                <span className="text-shimmer">Whatsapp/Telegram Bot</span>
+                <span className="text-shimmer">WA - TG Bot</span>
               </motion.h1>
 
               <motion.p
