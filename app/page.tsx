@@ -191,7 +191,7 @@ export default function Home() {
               <span className="absolute inset-0 bg-gradient-to-br from-cyanx/25 via-transparent to-purplex/25" />
               <span className="absolute inset-0 bg-gradient-to-br from-cyanx/40 to-purplex/40 opacity-0 transition group-hover:opacity-100" />
               <Image
-                src="/logo.svg"
+                src="/logo.png"
                 alt=""
                 width={26}
                 height={26}
