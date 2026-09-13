@@ -121,7 +121,7 @@ export default function Home() {
     hidden: { opacity: 0, y: reduce ? 0 : 22 },
     show: (i = 0) => ({
       opacity: 1, y: 0,
-      transition: { duration: .65, ease: [.2, .7, .2, 1], delay: i * .07 },
+      transition: { duration: .65, ease: [.2, .7, .2, 1] as any, delay: i * .07 },
     }),
   };
 
