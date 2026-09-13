@@ -314,9 +314,9 @@ export default function Home() {
                 custom={1}
                 className="max-w-5xl text-[clamp(2.75rem,8vw,7rem)] font-black leading-[.95] tracking-[-.04em]"
               >
-                Digital products.
+                Website, App
                 <br />
-                <span className="text-shimmer">Engineered.</span>
+                <span className="text-shimmer">Bot Automation</span>
               </motion.h1>
 
               <motion.p
