@@ -339,13 +339,14 @@ export default function Home() {
                 custom={3}
                 className="mt-9 flex flex-wrap gap-3"
               >
+                <a href="#contact" className="btn-ghost">
+                  Message Now <MessageCircle size={17} />
+                </a>
                 <a href="#work" className="btn-primary group">
                   Explore work
                   <ArrowUpRight size={17} className="transition-transform group-hover:rotate-45" />
                 </a>
-                <a href="#contact" className="btn-ghost">
-                  Let&apos;s talk <MessageCircle size={17} />
-                </a>
+                
               </motion.div>
 
               <motion.div
