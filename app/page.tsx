@@ -1043,7 +1043,7 @@ export default function Home() {
           <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
             <div className="flex items-center gap-3">
               <span className="grid h-9 w-9 place-items-center rounded-xl border border-cyanx/25 bg-ink-700">
-                <Image src="/logo.svg" alt="" width={22} height={22} />
+                <Image src="/logo.png" alt="" width={22} height={22} />
               </span>
               <div>
                 <p className="text-sm font-black tracking-tight">
