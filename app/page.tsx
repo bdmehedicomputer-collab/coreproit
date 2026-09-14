@@ -449,7 +449,7 @@ export default function Home() {
               >
                 <span className="font-semibold text-white">MD MEHEDI HASAN</span> — Full Stack
                 Developer behind <span className="font-semibold text-cyanx">CoreProIT</span>. I
-                build websites, apps, automation systems and intelligent bots that turn ideas into
+                build websites, mobile and windows apps, whatsapp/telegram automation systems and intelligent bots that turn ideas into
                 useful products.
               </motion.p>
 
@@ -520,10 +520,10 @@ export default function Home() {
 
                 <div className="space-y-2.5 p-5">
                   {[
-                    { label: "Web · Next.js", value: 96, tone: "cyan" as const },
-                    { label: "Backend · Node / PHP", value: 92, tone: "purple" as const },
-                    { label: "Automation · Python", value: 94, tone: "cyan" as const },
-                    { label: "Bots · Telegram / WA", value: 90, tone: "purple" as const },
+                    { label: "Website · Next.js", value: 100, tone: "cyan" as const },
+                    { label: "Mobile App · Java Native / XML", value: 100, tone: "purple" as const },
+                    { label: "Automation · Python", value: 100, tone: "cyan" as const },
+                    { label: "Bots · Telegram / Whatsapp", value: 100, tone: "purple" as const },
                   ].map((row, i) => (
                     <motion.div
                       key={row.label}
@@ -586,8 +586,8 @@ export default function Home() {
                   <Sparkles size={15} />
                 </span>
                 <div>
-                  <p className="text-[11px] font-bold leading-tight">4+ years</p>
-                  <p className="text-[10px] text-slate-500">Shipping products</p>
+                  <p className="text-[11px] font-bold leading-tight">7+ years</p>
+                  <p className="text-[10px] text-slate-500">Dev. experince</p>
                 </div>
               </motion.div>
             </motion.div>
