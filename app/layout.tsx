@@ -14,7 +14,7 @@ const mono = JetBrains_Mono({
   display: "swap",
 });
 
-const SITE = "https://coreproit.com";
+const SITE = "https://coreproit.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
