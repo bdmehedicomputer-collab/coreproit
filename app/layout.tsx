@@ -25,9 +25,16 @@ export const metadata: Metadata = {
   description:
     "CoreProIT — Full Stack Development, Automation, Apps and Bots by MD MEHEDI HASAN.",
   keywords: [
-    "CoreProIT", "MD MEHEDI HASAN", "Full Stack Developer",
-    "PHP", "Node.js", "Python", "Next.js", "Automation",
-    "Telegram Bot", "WhatsApp Bot",
+    "CoreProIT",
+    "MD MEHEDI HASAN",
+    "Full Stack Developer",
+    "PHP",
+    "Node.js",
+    "Python",
+    "Next.js",
+    "Automation",
+    "Telegram Bot",
+    "WhatsApp Bot",
   ],
   authors: [{ name: "MD MEHEDI HASAN" }],
   creator: "MD MEHEDI HASAN",
@@ -65,7 +72,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${sans.variable} ${mono.variable}`}>
       <body>
-        <a href="#home" className="skip-link">Skip to content</a>
+        <a href="#home" className="skip-link">
+          Skip to content
+        </a>
         {children}
       </body>
     </html>
