@@ -1,5 +1,14 @@
 "use client";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import {
+  faWhatsapp,
+  faTelegram,
+  faFacebookF,
+  faGithub,
+  faLinkedinIn,
+} from "@fortawesome/free-brands-svg-icons";
 import {
   AnimatePresence,
   motion,
@@ -16,14 +25,10 @@ import {
   Check,
   ChevronDown,
   Code2,
-  ExternalLink,
-  Github,
   Globe2,
   Layers3,
-  Linkedin,
   Mail,
   Menu,
-  MessageCircle,
   Rocket,
   Server,
   Smartphone,
@@ -37,9 +42,20 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 /* ------------------------------------------------------------------ */
-/* Typed easing tuple — required by Framer Motion v11+                */
+/* Required packages:                                                  */
+/*   npm i @fortawesome/fontawesome-svg-core \                         */
+/*         @fortawesome/free-brands-svg-icons \                        */
+/*         @fortawesome/react-fontawesome                              */
 /* ------------------------------------------------------------------ */
+
+/* Typed easing tuple — required by Framer Motion v11+ */
 const EASE: [number, number, number, number] = [0.2, 0.7, 0.2, 1];
+
+/* Single source of truth for the contact email */
+const EMAIL = "bdmehedi.computer@gmail.com";
+const WHATSAPP_URL = "https://wa.me/8801736840633";
+const TELEGRAM_URL = "https://t.me/mehediprobd";
+const FACEBOOK_URL = "https://facebook.com/mehedi.refused";
 
 /* ------------------------------------------------------------------ */
 /* Data                                                                */
@@ -54,19 +70,59 @@ const NAV = [
 ];
 
 const SERVICES = [
-  { icon: Globe2, title: "Web Experiences", text: "Premium business, personal and e-commerce websites built for speed, clarity and conversion." },
-  { icon: Smartphone, title: "App Development", text: "Modern mobile and Windows applications engineered around real workflows and polished UX." },
-  { icon: Workflow, title: "Automation", text: "Reliable automation systems that turn repetitive processes into dependable digital pipelines." },
-  { icon: Bot, title: "Messaging Bots", text: "Custom Telegram and WhatsApp bots with admin controls, commands and real API integrations." },
-  { icon: Server, title: "Backend & APIs", text: "Scalable backend services, REST APIs and data-driven systems built for growth." },
-  { icon: Layers3, title: "Full Stack Products", text: "End-to-end product development — interface, business logic, database and deployment." },
+  {
+    icon: Globe2,
+    title: "Web Experiences",
+    text: "Premium business, personal and e-commerce websites built for speed, clarity and conversion.",
+  },
+  {
+    icon: Smartphone,
+    title: "App Development",
+    text: "Modern mobile and Windows applications engineered around real workflows and polished UX.",
+  },
+  {
+    icon: Workflow,
+    title: "Automation",
+    text: "Reliable automation systems that turn repetitive processes into dependable digital pipelines.",
+  },
+  {
+    icon: Bot,
+    title: "Messaging Bots",
+    text: "Custom Telegram and WhatsApp bots with admin controls, commands and real API integrations.",
+  },
+  {
+    icon: Server,
+    title: "Backend & APIs",
+    text: "Scalable backend services, REST APIs and data-driven systems built for growth.",
+  },
+  {
+    icon: Layers3,
+    title: "Full Stack Products",
+    text: "End-to-end product development — interface, business logic, database and deployment.",
+  },
 ];
 
 const PROCESS = [
-  { n: "01", title: "Discover", text: "We clarify the problem, audience and success criteria. No code yet — just a shared understanding." },
-  { n: "02", title: "Design", text: "Wireframes, flows and a technical blueprint. You approve the shape before build begins." },
-  { n: "03", title: "Build", text: "Focused sprints with visible progress. You see working software, not just status updates." },
-  { n: "04", title: "Ship & Support", text: "Deploy, hand off and stay available. Clean docs, tested pipelines, no black boxes." },
+  {
+    n: "01",
+    title: "Discover",
+    text: "We clarify the problem, audience and success criteria. No code yet — just a shared understanding.",
+  },
+  {
+    n: "02",
+    title: "Design",
+    text: "Wireframes, flows and a technical blueprint. You approve the shape before build begins.",
+  },
+  {
+    n: "03",
+    title: "Build",
+    text: "Focused sprints with visible progress. You see working software, not just status updates.",
+  },
+  {
+    n: "04",
+    title: "Ship & Support",
+    text: "Deploy, hand off and stay available. Clean docs, tested pipelines, no black boxes.",
+  },
 ];
 
 const PROJECTS = [
@@ -75,7 +131,8 @@ const PROJECTS = [
     title: "Smart Windows Toolsuite",
     desc: "Desktop automation suite that turns multi-hour manual operations into one-click workflows.",
     tech: ["Python", "Windows", "Automation"],
-    image: "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?auto=format&fit=crop&w=1200&q=80",
+    image:
+      "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?auto=format&fit=crop&w=1200&q=80",
     alt: "Dashboard analytics interface on a monitor representing automation tooling",
   },
   {
@@ -83,7 +140,8 @@ const PROJECTS = [
     title: "Business Web Systems",
     desc: "Full-stack business platforms connecting clean storefronts with powerful admin backends.",
     tech: ["PHP", "Node.js", "MySQL", "REST API"],
-    image: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=1200&q=80",
+    image:
+      "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=1200&q=80",
     alt: "Web design workspace with layout mockups representing web platforms",
   },
   {
@@ -91,38 +149,97 @@ const PROJECTS = [
     title: "Messaging Automation",
     desc: "Custom Telegram and WhatsApp bot ecosystems with admin dashboards and API-driven flows.",
     tech: ["Node.js", "Telegram API", "WhatsApp API"],
-    image: "https://images.unsplash.com/photo-1611606063065-ee7946f0787a?auto=format&fit=crop&w=1200&q=80",
+    image:
+      "https://images.unsplash.com/photo-1611606063065-ee7946f0787a?auto=format&fit=crop&w=1200&q=80",
     alt: "Close-up of a phone showing messaging app representing chat automation",
   },
 ];
 
 const TESTIMONIALS = [
   {
-    quote: "Delivered our business site and internal automation within three weeks. Communication was direct and the code was clean.",
+    quote:
+      "Delivered our business site and internal automation within three weeks. Communication was direct and the code was clean.",
     name: "Arif H.",
     role: "Founder, Retail Ops",
   },
   {
-    quote: "The Telegram bot handles what used to take a full-time role. Reliable, well-documented and easy to extend.",
+    quote:
+      "The Telegram bot handles what used to take a full-time role. Reliable, well-documented and easy to extend.",
     name: "Nadia R.",
     role: "Operations Lead",
   },
   {
-    quote: "Rare to find a developer who thinks about the problem first. The result actually fits how our team works.",
+    quote:
+      "Rare to find a developer who thinks about the problem first. The result actually fits how our team works.",
     name: "Tanvir A.",
     role: "Product Manager",
   },
 ];
 
 const FAQ = [
-  { q: "What types of projects do you take on?", a: "Websites, web apps, desktop tools, backend APIs and messaging bot ecosystems. If it needs building and it's software, it's worth a conversation." },
-  { q: "How long does a typical project take?", a: "A focused marketing site: 1–2 weeks. A full-stack platform or bot system: 3–8 weeks depending on scope. You get a clear timeline before we start." },
-  { q: "Do you work with clients outside Bangladesh?", a: "Yes — most of my work is remote. I coordinate across time zones and keep progress visible through regular check-ins." },
-  { q: "What happens after launch?", a: "You receive clean documentation and a deployment you can run yourself. Ongoing support and iteration are available if you want them." },
-  { q: "How do we get started?", a: "Send a short message on WhatsApp or Telegram describing the idea. I'll reply with questions, a rough timeline and the next step." },
+  {
+    q: "What types of projects do you take on?",
+    a: "Websites, web apps, desktop tools, backend APIs and messaging bot ecosystems. If it needs building and it's software, it's worth a conversation.",
+  },
+  {
+    q: "How long does a typical project take?",
+    a: "A focused marketing site: 1–2 weeks. A full-stack platform or bot system: 3–8 weeks depending on scope. You get a clear timeline before we start.",
+  },
+  {
+    q: "Do you work with clients outside Bangladesh?",
+    a: "Yes — most of my work is remote. I coordinate across time zones and keep progress visible through regular check-ins.",
+  },
+  {
+    q: "What happens after launch?",
+    a: "You receive clean documentation and a deployment you can run yourself. Ongoing support and iteration are available if you want them.",
+  },
+  {
+    q: "How do we get started?",
+    a: "Send a short message on WhatsApp or Telegram describing the idea. I'll reply with questions, a rough timeline and the next step.",
+  },
 ];
 
-const TECH = ["HTML", "PHP", "NODE.JS", "PYTHON", "NEXT.JS", "TYPESCRIPT", "REST API", "AUTOMATION"];
+const TECH = [
+  "HTML",
+  "PHP",
+  "NODE.JS",
+  "PYTHON",
+  "NEXT.JS",
+  "TYPESCRIPT",
+  "REST API",
+  "AUTOMATION",
+];
+
+const SOCIALS: { icon: IconDefinition; href: string; label: string }[] = [
+  { icon: faGithub, href: "https://github.com", label: "GitHub" },
+  { icon: faLinkedinIn, href: "https://linkedin.com", label: "LinkedIn" },
+  { icon: faTelegram, href: TELEGRAM_URL, label: "Telegram" },
+  { icon: faWhatsapp, href: WHATSAPP_URL, label: "WhatsApp" },
+];
+
+/* ------------------------------------------------------------------ */
+/* Small helpers                                                       */
+/* ------------------------------------------------------------------ */
+
+/** Renders a Font Awesome brand icon with a guaranteed, non-conflicting size. */
+function Fa({
+  icon,
+  size = 17,
+  className,
+}: {
+  icon: IconDefinition;
+  size?: number;
+  className?: string;
+}) {
+  return (
+    <FontAwesomeIcon
+      icon={icon}
+      className={className}
+      style={{ width: size, height: size }}
+      aria-hidden
+    />
+  );
+}
 
 /* ------------------------------------------------------------------ */
 /* Page                                                                */
@@ -174,15 +291,19 @@ export default function Home() {
       {/* Background layers */}
       <div aria-hidden className="pointer-events-none fixed inset-0 -z-20 grid-bg" />
       <div aria-hidden className="pointer-events-none fixed inset-0 -z-20 noise opacity-[.05]" />
-      <div aria-hidden className="glow-cyan pointer-events-none fixed left-1/2 top-[-280px] -z-10 h-[680px] w-[680px] -translate-x-1/2" />
-      <div aria-hidden className="glow-purple pointer-events-none fixed right-[-200px] top-[35%] -z-10 h-[560px] w-[560px]" />
+      <div
+        aria-hidden
+        className="glow-cyan pointer-events-none fixed left-1/2 top-[-280px] -z-10 h-[680px] w-[680px] -translate-x-1/2"
+      />
+      <div
+        aria-hidden
+        className="glow-purple pointer-events-none fixed right-[-200px] top-[35%] -z-10 h-[560px] w-[560px]"
+      />
 
       {/* ---------------- NAV ---------------- */}
       <header
-        className={`fixed top-0 z-50 w-full transition-all duration-300 ${
-          scrolled
-            ? "border-b border-white/[.06] bg-ink/75 backdrop-blur-xl"
-            : "border-b border-transparent bg-transparent"
+        className={`fixed top-0 z-50 w-full border-b border-white/[.06] transition-colors duration-300 ${
+          scrolled ? "bg-ink/75 backdrop-blur-xl" : "bg-transparent"
         }`}
       >
         <div className="mx-auto flex h-[76px] max-w-7xl items-center justify-between px-5 lg:px-8">
@@ -340,13 +461,15 @@ export default function Home() {
                 className="mt-9 flex flex-wrap gap-3"
               >
                 <a href="#contact" className="btn-ghost">
-                  Message Now <MessageCircle size={17} />
+                  Message Now <Fa icon={faWhatsapp} size={16} />
                 </a>
                 <a href="#work" className="btn-primary group">
                   Explore work
-                  <ArrowUpRight size={17} className="transition-transform group-hover:rotate-45" />
+                  <ArrowUpRight
+                    size={17}
+                    className="transition-transform group-hover:rotate-45"
+                  />
                 </a>
-                
               </motion.div>
 
               <motion.div
@@ -666,7 +789,11 @@ export default function Home() {
               Built for <span className="text-gradient">impact.</span>
             </h2>
           </Reveal>
-          <Github className="hidden text-slate-700 sm:block" size={44} aria-hidden />
+          <Fa
+            icon={faGithub}
+            size={44}
+            className="hidden text-slate-700 sm:block"
+          />
         </div>
 
         <div className="grid gap-6 lg:grid-cols-3">
@@ -779,8 +906,16 @@ export default function Home() {
 
               <div className="mt-8 grid gap-4 sm:grid-cols-3">
                 {[
-                  { icon: Terminal, k: "Clean code", v: "Readable, documented, extendable" },
-                  { icon: Zap, k: "Fast delivery", v: "Focused sprints, visible progress" },
+                  {
+                    icon: Terminal,
+                    k: "Clean code",
+                    v: "Readable, documented, extendable",
+                  },
+                  {
+                    icon: Zap,
+                    k: "Fast delivery",
+                    v: "Focused sprints, visible progress",
+                  },
                   { icon: Check, k: "Reliable", v: "Tested before it ships" },
                 ].map((f) => (
                   <div
@@ -858,31 +993,31 @@ export default function Home() {
 
               <div className="mt-10 flex flex-wrap justify-center gap-3">
                 <a
-                  href="https://wa.me/8801736840633"
+                  href={WHATSAPP_URL}
                   target="_blank"
                   rel="noreferrer"
                   className="btn-primary"
                 >
-                  <MessageCircle size={17} /> WhatsApp
+                  <Fa icon={faWhatsapp} size={17} /> WhatsApp
                 </a>
                 <a
-                  href="https://t.me/mehediprobd"
+                  href={TELEGRAM_URL}
                   target="_blank"
                   rel="noreferrer"
                   className="btn-ghost"
                 >
-                  <Zap size={17} /> Telegram
+                  <Fa icon={faTelegram} size={17} /> Telegram
                 </a>
-                <a href="mailto:hello@coreproit.com" className="btn-ghost">
+                <a href={`mailto:${EMAIL}`} className="btn-ghost">
                   <Mail size={17} /> Email
                 </a>
                 <a
-                  href="https://facebook.com/mehedi.refused"
+                  href={FACEBOOK_URL}
                   target="_blank"
                   rel="noreferrer"
                   className="btn-ghost"
                 >
-                  <ExternalLink size={17} /> Facebook
+                  <Fa icon={faFacebookF} size={17} /> Facebook
                 </a>
               </div>
 
@@ -921,12 +1056,7 @@ export default function Home() {
             </div>
 
             <div className="flex items-center gap-2">
-              {[
-                { icon: Github, href: "https://github.com", label: "GitHub" },
-                { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-                { icon: MessageCircle, href: "https://t.me/mehediprobd", label: "Telegram" },
-                { icon: Mail, href: "mailto:hello@coreproit.com", label: "Email" },
-              ].map((s) => (
+              {SOCIALS.map((s) => (
                 <a
                   key={s.label}
                   href={s.href}
@@ -935,9 +1065,16 @@ export default function Home() {
                   aria-label={s.label}
                   className="grid h-9 w-9 place-items-center rounded-lg border border-white/[.08] bg-white/[.02] text-slate-400 transition hover:border-cyanx/30 hover:bg-cyanx/[.06] hover:text-cyanx"
                 >
-                  <s.icon size={15} />
+                  <Fa icon={s.icon} size={15} />
                 </a>
               ))}
+              <a
+                href={`mailto:${EMAIL}`}
+                aria-label="Email"
+                className="grid h-9 w-9 place-items-center rounded-lg border border-white/[.08] bg-white/[.02] text-slate-400 transition hover:border-cyanx/30 hover:bg-cyanx/[.06] hover:text-cyanx"
+              >
+                <Mail size={15} />
+              </a>
             </div>
           </div>
 
@@ -956,7 +1093,7 @@ export default function Home() {
 }
 
 /* ------------------------------------------------------------------ */
-/* Helpers                                                             */
+/* Reveal wrapper                                                      */
 /* ------------------------------------------------------------------ */
 
 function Reveal({
@@ -981,6 +1118,10 @@ function Reveal({
     </motion.div>
   );
 }
+
+/* ------------------------------------------------------------------ */
+/* Back-to-top button                                                  */
+/* ------------------------------------------------------------------ */
 
 function BackToTop() {
   const [show, setShow] = useState(false);
