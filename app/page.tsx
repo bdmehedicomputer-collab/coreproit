@@ -53,9 +53,9 @@ const EASE: [number, number, number, number] = [0.2, 0.7, 0.2, 1];
 
 /* Single source of truth for the contact email */
 const EMAIL = "bdmehedi.computer@gmail.com";
-const WHATSAPP_URL = "https://wa.me/8801736840633";
-const TELEGRAM_URL = "https://t.me/mehediprobd";
-const FACEBOOK_URL = "https://facebook.com/mehedi.refused";
+const WHATSAPP_URL = "https://wa.me/8801641390887";
+const TELEGRAM_URL = "https://t.me/coreproit";
+const FACEBOOK_URL = "https://facebook.com/coreproit.bd";
 
 /* ------------------------------------------------------------------ */
 /* Data                                                                */
